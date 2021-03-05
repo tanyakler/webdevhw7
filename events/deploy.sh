@@ -29,7 +29,7 @@ SECRET_KEY_BASE=$(cat "$CFGD/base")
 export SECRET_KEY_BASE
 
 DB_PASS=$(cat "$CFGD/db_pass")
-export DATABASE_URL=ecto://eventss:$DB_PASS@localhost/events_dev
+export DATABASE_URL=ecto://events:$DB_PASS@localhost/events_dev
 
 
 mix ecto.migrate
