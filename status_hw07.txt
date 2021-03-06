@@ -1,0 +1,36 @@
+
+Web Dev Spring 2021 HW07 Status
+
+Answer the following questions:
+
+
+1. What's your name?
+
+Tanya Kler
+
+2. What's the URL of the github repo with your work for this HW?
+
+https://github.com/tanyakler/webdevhw7
+
+
+3. What's the URL that you deployed to?
+
+events.tanyaklerwebdev.xyz
+
+4. Is your app functionality complete? If not, what's missing?
+
+yes
+
+5. Is your app properly deployed? If not, what went wrong?
+
+deployment issues and errors came about towards the end of the process that were unfixable
+I wan't able to do the final step of resetting nginx
+
+6. If you would like the deployment for an old homework to be reconsidered, what
+are the links to your Inkfish submission and deployed site?
+
+
+And here's a list of tasks for grading comments. Just leave this here:
+ - Development
+ - Deployment
+ - Submission
