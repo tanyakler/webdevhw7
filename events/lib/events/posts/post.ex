@@ -7,7 +7,7 @@ defmodule Events.Posts.Post do
     field :description, :string
     field :name, :string
     belongs_to :user, Events.Users.User
-
+    has_many :comments, Events.Comments.Comment
     timestamps()
   end
 

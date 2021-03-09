@@ -19,5 +19,30 @@
 
 </ul>
 
-<span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
+<%= if current_user_id?(@conn, @post.user_id) do %>
+  <span><%= link "Edit", to: Routes.post_path(@conn, :edit, @post) %></span>
+<% end %>
+
+<h2>Add Comment</h2>
+
+<%= if have_current_user?(@conn) do %>
+  <%= render(
+   EventsWeb.CommentView,
+   "form.html",
+   changeset: @new_comment,
+   action: Routes.comment_path(@conn, :create)
+  ) %>
+<% end %>
+
+<h2>Comments</h2>
+
+<%= for comm <- @post.comments do %>
+  <div class="card">
+    <div class="card-body">
+      <p>Commented by <%= comm.user.name %></p>
+      <p class="card-text"><%= comm.body %></p>
+    </div>
+  </div>
+<% end %>
+
 <span><%= link "Back", to: Routes.post_path(@conn, :index) %></span>
