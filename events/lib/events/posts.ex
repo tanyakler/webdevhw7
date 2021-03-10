@@ -106,4 +106,22 @@ defmodule Events.Posts do
   def load_comments(%Post{} = post) do
     Repo.preload(post, [comments: :user])
   end
+
+  def load_rsvps(%Post{} = post) do
+    post = Repo.preload(post, :rsvps)
+    score = post.rsvps
+    |> Enum.map(&(&1.rsvps))
+    |> Enum.sum()
+    %{ post | score: score }
+  end
+
+  def load_rsvps(posts) do
+    posts = Repo.preload(posts, :rsvps)
+    Enum.map posts, fn post ->
+      score = post.rsvps
+      |> Enum.map(&(&1.rsvps))
+      |> Enum.sum()
+      %{ post | score: score }
+    end
+  end
 end

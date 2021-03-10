@@ -6,8 +6,10 @@ defmodule Events.Posts.Post do
     field :date, :string
     field :description, :string
     field :name, :string
+    field :score, :integer, virtual: true
     belongs_to :user, Events.Users.User
     has_many :comments, Events.Comments.Comment
+    has_many :rsvps, Events.Rsvps.Rsvp
     timestamps()
   end
 

@@ -13,3 +13,12 @@ import "../css/app.scss"
 //     import socket from "./socket"
 //
 import "phoenix_html"
+
+import flatpickr from "flatpickr";
+
+window.addEventListener('load', () => {
+	flatpickr('.flatpickr-datetime', {
+		enableTime: true,
+		dateFormat: "Y M d, h: i K"
+	});
+});
