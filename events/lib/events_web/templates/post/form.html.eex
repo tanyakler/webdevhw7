@@ -24,6 +24,24 @@
   <%= error_tag f, :description %>
   </div>
 
+  <div class="row posts-container">
+    <%= for post <- @posts do %>
+    <div class="col-sm-4 card post-card" data-post-id="<%= post.id %>">
+      <% src = Routes.post_path(@conn, :photo, post) %>
+      <img class="card-img-top" src="<%= src %>" alt="">
+      <div class="card-body">
+        <p>Posted by <%= post.user.name %></p>
+        <p class="card-text"><%= post.body %></p>
+        <%= link "view", to: Routes.post_path(@conn, :show, post) %>
+        <p>
+          RSVPs: <span class="post-score"><%= post.score %></span>
+          <button class="rsvpyes">yes;</button>
+          <button class="rsvpno">no;</button>
+        </p>
+      </div>
+    </div>
+  <% end %>
+  </div>
   <div>
     <%= submit "Save", class: "btn btn-primary" %>
   </div>
