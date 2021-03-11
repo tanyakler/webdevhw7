@@ -10,6 +10,7 @@ defmodule Events.Posts.Post do
     belongs_to :user, Events.Users.User
     has_many :comments, Events.Comments.Comment
     has_many :rsvps, Events.Rsvps.Rsvp
+    has_many :invites, Events.Invites.Invite
     timestamps()
   end
 

@@ -14,11 +14,7 @@ import "../css/app.scss"
 //
 import "phoenix_html"
 
-import flatpickr from "flatpickr";
+import flatpickr from "flatpickr"
 
-window.addEventListener('load', () => {
-	flatpickr('.flatpickr-datetime', {
-		enableTime: true,
-		dateFormat: "Y M d, h: i K"
-	});
-});
+const flatp = flatpickr("#pickr", { enableTime true });
+console.log(flatp);
