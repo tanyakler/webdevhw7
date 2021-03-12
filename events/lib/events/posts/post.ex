@@ -3,7 +3,7 @@ defmodule Events.Posts.Post do
   import Ecto.Changeset
 
   schema "posts" do
-    field :date, :utc_datetime
+    field :date, utc_datetime
     field :description, :string
     field :name, :string
     field :score, :integer, virtual: true
