@@ -3,6 +3,8 @@ defmodule EventsWeb.PostController do
 
   alias Events.Posts
   alias Events.Posts.Post
+  alias Events.Invites
+  alias Events.Users
   alias EventsWeb.Plugs
   plug Plugs.RequireUser when action in [:new, :edit, :create, :update]
   plug :fetch_post when action in [:show, :edit, :update, :delete]
@@ -53,14 +55,37 @@ defmodule EventsWeb.PostController do
 
   def show(conn, %{"id" => id}) do
     post = conn.assigns[:post]
-    |> Posts.load_comments()
+  #  |> Posts.load_invites()
+  #  |> Posts.load_user()
+  #  |> Posts.load_comments()
+
+    useID = current_user_id(conn)
+
     comm = %Events.Comments.Comment{
       post_id: post.id,
       user_id: current_user_id(conn),
       vote: 0,
     }
+
+    invite = %Events.Invites.Invite{
+      post_id: post.id,
+    }
+
+    user = if useID do
+      Users.get_user(useID)
+    end
+
+    response = if user do
+      Invites.get_invite_by_email(user.email)
+    end
+
     new_comment = Events.Comments.change_comment(comm)
-    render(conn, "show.html", post: post, new_comment: new_comment)
+    new_invite = Events.Invites.change_invite(invite)
+    edit_invite = if response do
+      Events.Invites.change_invite(response)
+    end
+    render(conn, "show.html", post: post, new_comment: new_comment, new_invite:
+    new_invite, edit_invite: edit_invite, response: response)
   end
 
   def edit(conn, %{"id" => id}) do

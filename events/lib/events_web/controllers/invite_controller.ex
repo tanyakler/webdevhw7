@@ -3,6 +3,7 @@ defmodule EventsWeb.InviteController do
 
   alias Events.Invites
   alias Events.Invites.Invite
+  alias Events.Users
 
   def index(conn, _params) do
     invites = Invites.list_invites()
@@ -15,11 +16,20 @@ defmodule EventsWeb.InviteController do
   end
 
   def create(conn, %{"invite" => invite_params}) do
+    invite_params = invite_params |> Map.put("response", "n/a")
+    email = invite_params["email"]
+    user = Users.get_user_by_email(email)
+    invite_params = if user do
+      Map.put(invite_params, "user_id", user.id)
+    else
+      invite_params
+    end
+
     case Invites.create_invite(invite_params) do
       {:ok, invite} ->
         conn
         |> put_flash(:info, "Invite created successfully.")
-        |> redirect(to: Routes.invite_path(conn, :show, invite))
+        |> redirect(to: Routes.invite_path(conn, :show, invite.post_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
@@ -44,7 +54,7 @@ defmodule EventsWeb.InviteController do
       {:ok, invite} ->
         conn
         |> put_flash(:info, "Invite updated successfully.")
-        |> redirect(to: Routes.invite_path(conn, :show, invite))
+        |> redirect(to: Routes.invite_path(conn, :show, invite.post_id))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", invite: invite, changeset: changeset)

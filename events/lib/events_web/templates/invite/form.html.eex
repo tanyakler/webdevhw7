@@ -5,11 +5,12 @@
     </div>
   <% end %>
 
+<div class="form-group">
   <%= label f, :response %>
-  <%= textarea f, :response %>
-  <%= error_tag f, :response %>
-
+  <%= textarea f, :email, class: "form-control" %>
+  <%= error_tag f, :email %>
+</div>
   <div>
-    <%= submit "Save" %>
+    <%= submit "Send Invite", class: "btn btn-primary" %>
   </div>
 <% end %>

@@ -89,6 +89,10 @@ defmodule Events.Invites do
     Repo.delete(invite)
   end
 
+  def get_invite_by_email(email) do
+   Repo.get_by(Invite, email: email)
+  end
+
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking invite changes.
 

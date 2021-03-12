@@ -34,6 +34,50 @@
   ) %>
 <% end %>
 
+<div>
+  <h2>RSVPs</h2>
+  <h5> <%= rsvpcounts(@conn) %> </h5>
+
+  <%= if current_user_id?(@conn, @post.user_id) do %>
+    <%= render(
+      EventsWeb.InviteView,
+      "form.html",
+      changeset: @new_invite,
+      action: Routes.invite_path(@conn, :create)) %>
+
+     <h3> Link for invitations:
+     <%= link "http://events.tanyaklerwebdev.xyz" <>
+     Routes.post_path(@conn, :show, @post),
+     to: Routes.post_path(@conn, :show, @post) %>
+  <% else %>
+  <%= render(
+    EventsWeb.InviteView, "edit.html", changeset: @edit_invite,
+    action: Routes.invite_path(@conn, :update, @response)) %>
+
+    <div class="row">
+      <div class="col">
+        <p>user email</p>
+      </div>
+      <div class="col">
+        <p>rsvp</p>
+      </div>
+    </div>
+
+    <%= for invitation <- @post.invites do %>
+      <div class="row">
+        <div class="col">
+          <%= invitation.email %>
+        </div>
+        <div class="col">
+          <%= invitation.response %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+</div>
+
+
 <h2>Comments</h2>
 
 <%= for comm <- @post.comments do %>

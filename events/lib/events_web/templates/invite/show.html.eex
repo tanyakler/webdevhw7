@@ -3,6 +3,10 @@
 <ul>
 
   <li>
+    <strong>Email:</strong>
+    <%= @invite.email %>
+  </li>
+  <li>
     <strong>Response:</strong>
     <%= @invite.response %>
   </li>

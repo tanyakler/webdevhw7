@@ -4,8 +4,7 @@ defmodule EventsWeb.PageController do
   alias Events.Posts
 
   def index(conn, _params) do
-    posts = Posts.list_posts()
-    |> Posts.load_rsvps()
-    render(conn, "index.html", posts: posts)
-  end
+   	posts = Posts.list_posts()
+     render(conn, "index.html", posts: posts)
+   end
 end

@@ -20,6 +20,7 @@ defmodule Events.Posts do
   def list_posts do
     Repo.all(Post)
     |> Repo.preload(:user)
+    |> Repo.preload(:invites)
   end
 
   @doc """
@@ -123,5 +124,9 @@ defmodule Events.Posts do
       |> Enum.sum()
       %{ post | score: score }
     end
+  end
+
+  def load_invites(%Post{} = post) do
+    Repo.preload(post, :invites)
   end
 end
